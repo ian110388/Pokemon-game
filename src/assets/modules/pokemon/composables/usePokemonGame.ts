@@ -1,6 +1,7 @@
 import { computed, onMounted, ref } from 'vue';
 import { GameStatus, type Pokemon, type PokemonListResponse } from '../interfaces';
 import { pokemonApi } from '../api/pokemonApi';
+import PokemonOptions from '../components/PokemonOptions.vue';
 
 export const usePokemonGame = () => {
   const gameStatus = ref<GameStatus>(GameStatus.Playing);
@@ -32,6 +33,8 @@ export const usePokemonGame = () => {
   onMounted(async () => {
     pokemons.value = await getPokemons();
     getNextOptions();
+
+    console.log(pokemonOptions.value);
   });
 
   return {
