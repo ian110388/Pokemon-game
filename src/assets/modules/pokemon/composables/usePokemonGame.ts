@@ -7,6 +7,7 @@ export const usePokemonGame = () => {
   const gameStatus = ref<GameStatus>(GameStatus.Playing);
   const pokemons = ref<Pokemon[]>([]);
   const pokemonOptions = ref<Pokemon[]>([]);
+  let blockSelection = false;
 
   const isLoading = computed(() => pokemons.value.length == 0);
   const randomPokemon = computed(() => {
@@ -47,6 +48,7 @@ export const usePokemonGame = () => {
       return;
     }
     gameStatus.value = GameStatus.Lost;
+    blockSelection = true;
   };
 
   onMounted(async () => {
@@ -61,6 +63,7 @@ export const usePokemonGame = () => {
     isLoading,
     pokemonOptions,
     randomPokemon,
+    blockSelection,
 
     // Methods
     getNextOptions,
