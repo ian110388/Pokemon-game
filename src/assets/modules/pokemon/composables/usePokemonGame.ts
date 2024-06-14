@@ -7,7 +7,6 @@ export const usePokemonGame = () => {
   const gameStatus = ref<GameStatus>(GameStatus.Playing);
   const pokemons = ref<Pokemon[]>([]);
   const pokemonOptions = ref<Pokemon[]>([]);
-  let blockSelection = false;
 
   const isLoading = computed(() => pokemons.value.length == 0);
   const randomPokemon = computed(() => {
@@ -29,7 +28,7 @@ export const usePokemonGame = () => {
     return pokemonsArray.sort(() => Math.random() - 0.5);
   };
 
-  const getNextOptions = (howMany: number = 4) => {
+  const getNextRound = (howMany: number = 4) => {
     gameStatus.value = GameStatus.Playing;
     pokemonOptions.value = pokemons.value.slice(0, howMany);
     pokemons.value = pokemons.value.slice(howMany);
@@ -48,12 +47,11 @@ export const usePokemonGame = () => {
       return;
     }
     gameStatus.value = GameStatus.Lost;
-    blockSelection = true;
   };
 
   onMounted(async () => {
     pokemons.value = await getPokemons();
-    getNextOptions();
+    getNextRound();
 
     console.log(pokemonOptions.value);
   });
@@ -63,10 +61,9 @@ export const usePokemonGame = () => {
     isLoading,
     pokemonOptions,
     randomPokemon,
-    blockSelection,
 
     // Methods
-    getNextOptions,
+    getNextRound,
     checkAnswer,
   };
 };
