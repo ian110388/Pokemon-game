@@ -7,6 +7,9 @@ export const usePokemonGame = () => {
   const gameStatus = ref<GameStatus>(GameStatus.Playing);
   const pokemons = ref<Pokemon[]>([]);
   const pokemonOptions = ref<Pokemon[]>([]);
+  const gameScore = {
+    score: 0,
+  };
 
   const isLoading = computed(() => pokemons.value.length == 0);
   const randomPokemon = computed(() => {
@@ -39,6 +42,7 @@ export const usePokemonGame = () => {
 
     if (hasWon) {
       gameStatus.value = GameStatus.Won;
+      gameScore.score++;
       confetti({
         particleCount: 300,
         spread: 150,
@@ -47,6 +51,7 @@ export const usePokemonGame = () => {
       return;
     }
     gameStatus.value = GameStatus.Lost;
+    gameScore.score = 0;
   };
 
   onMounted(async () => {
@@ -61,6 +66,7 @@ export const usePokemonGame = () => {
     isLoading,
     pokemonOptions,
     randomPokemon,
+    gameScore,
 
     // Methods
     getNextRound,

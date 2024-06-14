@@ -8,6 +8,7 @@
   </section>
 
   <section v-else class="flex flex-col justify-center items-center w-screen h-screen">
+    <h1 class="m-5">Puntuación: {{ gameScore.score }}</h1>
     <h1 class="m-5">Quién es este pokémon?</h1>
     <!-- <h3 class="capitalize">{{ gameStatus }}</h3> -->
     <div class="h-20">
@@ -43,6 +44,7 @@ import { GameStatus } from '../interfaces';
 
 const {
   randomPokemon,
+  gameScore,
   isLoading,
   gameStatus,
   pokemonOptions: options,
